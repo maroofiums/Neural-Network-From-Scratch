@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 class NeuralNetwork:
     def __init__(self,input_size, hidden_size, output_size, learning_rate = 0.01):
@@ -64,6 +65,18 @@ class NeuralNetwork:
         outputs = self.forward(X)
         return (outputs > 0.5).astype(int)
     
+    def plot_decision_boundary(self,X,y):
+        x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+        y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+        xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01), np.arange(y_min, y_max, 0.01))
+
+        Z = self.predict(np.c_[xx.ravel(), yy.ravel()])
+        Z = Z.reshape(xx.shape)
+
+        plt.contourf(xx, yy, Z, alpha=0.8)
+        plt.scatter(X[:, 0], X[:, 1], c=y.flatten(), edgecolors='k', marker='o')
+        plt.title('Decision Boundary')
+        plt.show()
 
 if __name__ == "__main__":
     X = np.array([
@@ -90,3 +103,5 @@ if __name__ == "__main__":
     nn.train(X, y, epochs=100000)
 
     print(nn.predict(X))
+    
+    nn.plot_decision_boundary(X,y)

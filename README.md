@@ -10,6 +10,7 @@ It demonstrates:
 - Gradient descent  
 - Loss calculation  
 - Binary prediction  
+- Decision boundary visualization using Matplotlib  
 
 The goal is to understand how neural networks work internally before using frameworks like PyTorch or TensorFlow.
 
@@ -26,9 +27,9 @@ The XOR truth table:
 | 1 | 0 | 1 |
 | 1 | 1 | 0 |
 
-XOR is **not linearly separable**, meaning a single perceptron cannot solve it.
+XOR is **not linearly separable**, meaning a single-layer perceptron cannot solve it.
 
-A hidden layer allows the network to learn nonlinear decision boundaries.
+A hidden layer enables the network to learn nonlinear decision boundaries.
 
 ---
 
@@ -55,16 +56,14 @@ Architecture:
 
 ## Features
 
-### Weight Initialization
-
-Weights are initialized randomly:
-
-```python
-self.W1 = np.random.rand(input_size, hidden_size)
-self.W2 = np.random.rand(hidden_size, output_size)
-```
-
-Biases are initialized as zeros.
+- Custom neural network implementation from scratch  
+- Random weight initialization  
+- Forward propagation  
+- Backpropagation  
+- Mean Squared Error loss  
+- Gradient descent optimization  
+- XOR prediction  
+- Decision boundary visualization  
 
 ---
 
@@ -98,17 +97,11 @@ $$
 \sigma(x)=\frac{1}{1+e^{-x}}
 $$
 
-This function maps outputs between:
-
-```text
-0 → 1
-```
-
 ---
 
 ## Loss Function
 
-This project uses **Mean Squared Error (MSE)**:
+This project uses Mean Squared Error:
 
 $$
 Loss = \frac{1}{n}\sum (y-\hat{y})^2
@@ -130,7 +123,7 @@ $$
 \delta_{hidden}=\delta_{output}W_2^T \cdot \sigma'(a_1)
 $$
 
-Weight updates:
+Weight update rule:
 
 $$
 W = W - \eta \nabla W
@@ -143,15 +136,35 @@ Where:
 
 ---
 
+## Decision Boundary Visualization
+
+This project now visualizes how the neural network separates XOR classes using **Matplotlib**.
+
+After training:
+
+```python
+nn.plot_decision_boundary(X, y)
+```
+
+This generates a plot showing:
+
+- learned classification regions  
+- XOR data points  
+- nonlinear separation boundary  
+
+This helps visualize why hidden layers are necessary for solving XOR.
+
+---
+
 ## Training
 
-Train the network using:
+Train the network:
 
 ```python
 nn.train(X, y, epochs=100000)
 ```
 
-Training output example:
+Example output:
 
 ```text
 Epoch 0, Loss: 0.30
@@ -163,8 +176,6 @@ Epoch 2000, Loss: 0.18
 ---
 
 ## Prediction
-
-After training:
 
 ```python
 print(nn.predict(X))
@@ -193,15 +204,17 @@ neural-network/
 
 ---
 
-## How to Run
+## Installation
 
-Install Dependencies:
+Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+pip install numpy matplotlib
 ```
 
-Run:
+---
+
+## Run Project
 
 ```bash
 python main.py
@@ -209,16 +222,23 @@ python main.py
 
 ---
 
-## Learning Goals
+## Output Visualization
+
+![Decision Boundary](images\decision-boundary.png)
+
+--
+
+## Learning Outcomes
 
 This project helps understand:
 
-- Matrix multiplication  
+- Matrix operations in neural networks  
 - Activation functions  
 - Gradient descent  
 - Backpropagation  
-- Loss optimization  
-- Why hidden layers matter  
+- Nonlinear classification  
+- Decision boundaries  
+- Why XOR is a foundational ML problem  
 
 ---
 
@@ -228,17 +248,17 @@ This project helps understand:
 - Add ReLU activation  
 - Add multiple hidden layers  
 - Implement mini-batch gradient descent  
-- Visualize loss curves using Matplotlib  
-- Build the same model using PyTorch for comparison  
+- Add training loss graph  
+- Rebuild using PyTorch/TensorFlow  
 
 ---
 
 ## Why Build This?
 
-Libraries like TensorFlow and PyTorch abstract away the math.
+Libraries like PyTorch and TensorFlow abstract away the math.
 
-Building a neural network from scratch helps you truly understand:
+Building neural networks from scratch helps develop deeper intuition for:
 
-> how forward propagation, backpropagation, and gradient updates work under the hood.
+> forward propagation, gradients, optimization, and nonlinear learning
 
-That foundation becomes extremely valuable when moving into deep learning, research, or building custom architectures.
+This foundation is extremely valuable for machine learning engineering and deep learning research.
