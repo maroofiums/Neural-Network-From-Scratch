@@ -224,7 +224,7 @@ python main.py
 
 ## Output Visualization
 
-![Decision Boundary](images\decision-boundary.png)
+![Decision Boundary](https://github.com/maroofiums/Neural-Network-From-Scratch/blob/main/images/decision-boundary.png)
 
 --
 
